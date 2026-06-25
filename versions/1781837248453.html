@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Geo Markets Tracker",
+  "schemaVersion": 1,
+  "description": "Live geopolitical-event-to-markets decision tracker for stock/forex positioning. Maps US/Russia/Iran/Israel + China/Taiwan/Japan scenarios to forex, commodities, equities, and crypto with probability estimates, a cross-instrument playbook, and watch triggers. Snapshot as of June 2026."
+}
+</script>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Geo-Event Market Tracker</title>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<style>
+:root{color-scheme:light;--bg:#f7f6f3;--card:#ffffff;--ink:#1c1c1a;--mut:#5f5e5a;--hint:#888780;--bd:rgba(0,0,0,.12);--bd2:rgba(0,0,0,.22);
+--red:#a32d2d;--redbg:#fcebeb;--green:#3b6d11;--greenbg:#eaf3de;--amber:#854f0b;--amberbg:#faeeda;--blue:#185fa5;--bluebg:#e6f1fb;--teal:#0f6e56;--tealbg:#e1f5ee;--purple:#534ab7;--purplebg:#eeedfe;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55;font-size:15px}
+.wrap{max-width:960px;margin:0 auto;padding:24px 20px 60px}
+h1{font-size:23px;font-weight:600;margin:0 0 4px}
+h2{font-size:18px;font-weight:600;margin:34px 0 12px}
+.sub{color:var(--mut);font-size:13px;margin:0 0 4px}
+.asof{color:var(--hint);font-size:12px;margin:0 0 18px}
+.card{background:var(--card);border:.5px solid var(--bd);border-radius:12px;padding:16px 18px;margin-bottom:14px}
+.grid{display:grid;gap:12px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.metric{background:#f1efe8;border-radius:8px;padding:12px 14px}
+.metric .l{font-size:12px;color:var(--mut);margin:0 0 4px}
+.metric .v{font-size:22px;font-weight:600;margin:0}
+.pill{display:inline-block;font-size:12px;font-weight:500;padding:3px 10px;border-radius:20px;margin:2px 4px 2px 0}
+.p-red{background:var(--redbg);color:var(--red)}.p-green{background:var(--greenbg);color:var(--green)}.p-amber{background:var(--amberbg);color:var(--amber)}.p-blue{background:var(--bluebg);color:var(--blue)}.p-teal{background:var(--tealbg);color:var(--teal)}.p-purple{background:var(--purplebg);color:var(--purple)}
+.scn{border:.5px solid var(--bd);border-radius:12px;padding:16px 18px;margin-bottom:12px;background:var(--card)}
+.scn-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.scn-name{font-size:16px;font-weight:600;margin:0}
+.prob{font-size:20px;font-weight:600}
+.bar{height:7px;border-radius:6px;background:#eceae3;margin:8px 0 12px;overflow:hidden}
+.bar>span{display:block;height:100%;border-radius:6px}
+.moves{display:grid;gap:6px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-top:6px}
+.mv{font-size:13px;padding:7px 10px;border-radius:8px;background:#f7f6f3;border:.5px solid var(--bd)}
+.mv b{font-weight:600}
+.up{color:var(--green)}.down{color:var(--red)}.flat{color:var(--mut)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;padding:8px 8px;border-bottom:.5px solid var(--bd);vertical-align:top}
+th{color:var(--mut);font-weight:500;font-size:12px}
+.trig{font-size:13px;margin:5px 0;padding-left:18px;position:relative}
+.trig:before{content:"";position:absolute;left:2px;top:7px;width:7px;height:7px;border-radius:50%}
+.t-esc:before{background:var(--red)}.t-de:before{background:var(--green)}.t-watch:before{background:var(--amber)}
+.note{font-size:12px;color:var(--hint);margin-top:6px}
+.disc{background:#f1efe8;border-radius:10px;padding:12px 14px;font-size:12.5px;color:var(--mut);margin-top:28px}
+a{color:var(--blue)}
+.legend{font-size:12px;color:var(--mut);margin:2px 0 14px}
+.tag{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--hint)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Geo-Event Market Tracker</h1>
+<p class="sub">Live geopolitical scenarios &rarr; positioning signals across forex, commodities, equities &amp; crypto</p>
+<p class="asof" id="asof">Snapshot as of 19 June 2026</p>
+
+<div class="card" style="padding:14px 16px 10px">
+  <span class="tag">Active hot spots &mdash; who's moving markets now</span>
+  <div id="mapwrap" style="margin-top:10px;width:100%"></div>
+  <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-size:12px;color:var(--mut);align-items:center">
+    <span style="display:flex;align-items:center;gap:5px"><span style="width:11px;height:11px;border-radius:50%;background:#e24b4a"></span>Active conflict</span>
+    <span style="display:flex;align-items:center;gap:5px"><span style="width:11px;height:11px;border-radius:50%;background:#ef9f27"></span>Flashpoint / rising</span>
+    <span style="display:flex;align-items:center;gap:5px"><span style="width:11px;height:11px;border-radius:50%;background:#378add"></span>Key player</span>
+    <span style="color:var(--hint)">Dot size = current market impact</span>
+  </div>
+</div>
+
+<div class="card">
+  <span class="tag">Current state of play</span>
+  <div class="grid g3" style="margin-top:10px">
+    <div class="metric"><p class="l">Regime now</p><p class="v" style="color:var(--green)">De-escalation</p></div>
+    <div class="metric"><p class="l">Brent crude</p><p class="v">~$78/bbl &darr;</p></div>
+    <div class="metric"><p class="l">Gold (XAU)</p><p class="v">~$4,250 &darr;</p></div>
+  </div>
+  <p style="font-size:13.5px;margin:12px 0 0">The regime has <b>flipped to peace-pricing.</b> US&ndash;Iran reached a deal to end the war (the largest oil-supply disruption on record), the US lifted its blockade, and direct talks are on. Markets are unwinding the war premium fast: Brent fell to ~$78 (lowest since Feb), gold dropped ~2% as the Fed signalled support for rate <i>hikes</i> this year, DXY firmed to ~100.8, and USD/JPY pushed above 161. Risk-on globally &mdash; Nikkei smashed 70,000 (closed 71,053) on the peace accord, though Hang Seng lagged (&minus;2%). Asia-Pacific remains a slow-burn second front: China Coast Guard incursions near Dongsha, 100+ vessels in the first island chain. The trade now is the <b>de-escalation playbook</b>, with tail-hedges for re-escalation.</p>
+</div>
+
+<h2>Scenario tree &mdash; next 4&ndash;8 weeks</h2>
+<p class="legend">Probabilities are estimates for positioning, not certainties. They should be re-weighted as headlines land &mdash; see triggers below.</p>
+
+<div id="scenarios"></div>
+
+<h2>The "Jiang Thesis" &mdash; speculative narrative scenario</h2>
+<div class="card" style="border:1.5px solid var(--amber);background:#fffdf8">
+  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px">
+    <span class="pill p-amber" style="font-weight:600">SPECULATIVE</span>
+    <span style="font-size:12.5px;color:var(--amber)">Based on the viral YouTube "China's Nostradamus" theory &mdash; not evidence-based. Read the caveat.</span>
+  </div>
+  <p style="font-size:13px;color:var(--mut);margin:0 0 12px">This is one storyteller's narrative, included because you asked. There is no auditable formula, no verified track record, and his thesis is <b>already partly contradicted by this week's tape</b> (he predicts deepening war + US defeat; reality is a US-brokered deal and markets pricing peace). Treat as a low-probability tail story, not a base case.</p>
+
+  <p style="font-size:13.5px;font-weight:600;margin:0 0 6px">His predicted chain of events ("next moves"):</p>
+  <div id="jiang-chain"></div>
+
+  <p style="font-size:13.5px;font-weight:600;margin:16px 0 6px">If that chain plays out &mdash; what it implies for markets:</p>
+  <div class="moves" id="jiang-moves"></div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px">
+    <div style="background:var(--greenbg);border-radius:8px;padding:10px 12px">
+      <p style="font-size:12px;font-weight:600;color:var(--green);margin:0 0 4px">Reality check &mdash; what's TRUE so far</p>
+      <p style="font-size:12.5px;margin:0;color:var(--green)">Trump re-elected &#10003;. US struck Iran &#10003;. Both were broadly-anticipated, high-odds calls.</p>
+    </div>
+    <div style="background:var(--redbg);border-radius:8px;padding:10px 12px">
+      <p style="font-size:12px;font-weight:600;color:var(--red);margin:0 0 4px">Reality check &mdash; what's WRONG so far</p>
+      <p style="font-size:12.5px;margin:0;color:var(--red)">"US loses, war deepens to WWIII" &mdash; the opposite is happening: ceasefire deal, oil $78, Nikkei 71k.</p>
+    </div>
+  </div>
+  <p class="note" style="margin-top:10px">How to play it if you "buy" the theory: it's effectively a <b>long-volatility / long-tail-risk</b> bet &mdash; cheap oil calls, long gold on dips, long JPY/CHF, hedge equities. Same hedges as the re-escalation scenario above, so you don't need to believe the prophecy to own the protection.</p>
+</div>
+
+<h2>What moves under each scenario</h2>
+<div class="card" style="padding:6px 10px">
+<table id="playbook">
+<thead><tr><th style="width:130px">Instrument</th><th>Escalation</th><th>De-escalation / truce holds</th><th>Asia front opens</th></tr></thead>
+<tbody></tbody>
+</table>
+</div>
+<p class="note">&uarr; = expect up / long bias&nbsp;&nbsp;&nbsp;&darr; = expect down / short bias&nbsp;&nbsp;&nbsp;&ndash; = neutral/range. Directional bias only, not entry advice.</p>
+
+<h2>Watch triggers (re-weight when these fire)</h2>
+<div class="grid g2">
+  <div class="card">
+    <span class="tag" style="color:var(--red)">Escalation signals &mdash; risk-off</span>
+    <div id="esc" style="margin-top:8px"></div>
+  </div>
+  <div class="card">
+    <span class="tag" style="color:var(--green)">De-escalation signals &mdash; risk-on</span>
+    <div id="de" style="margin-top:8px"></div>
+  </div>
+</div>
+<div class="card">
+  <span class="tag" style="color:var(--amber)">Asia-Pacific second-front signals</span>
+  <div id="asia" style="margin-top:8px"></div>
+</div>
+
+<h2>Specific trade ideas &mdash; levels, targets, stops</h2>
+<p class="legend">Reference prices captured 18&ndash;19 Jun 2026 (latest published quotes, may be delayed/last-close &mdash; not live tick data; confirm on your broker/TradingView before acting). Scenario-based level frameworks for <b>de-escalation as the base case</b>, not entry calls. Size for violent two-way gaps.</p>
+<div class="card" style="padding:6px 10px">
+<table id="ideas">
+<thead><tr><th style="width:128px">Instrument</th><th style="width:62px">Bias</th><th>Ref price</th><th>Entry zone</th><th>Target</th><th>Stop / invalidation</th></tr></thead>
+<tbody></tbody>
+</table>
+</div>
+<p class="note">Targets/stops are illustrative round levels off the reference price &mdash; not precise forecasts. "Bias" follows the de-escalation base case; under re-escalation, oil/gold/defense longs and equity shorts invert (see scenario tree).</p>
+
+<div class="grid g2" style="margin-top:14px">
+  <div class="card">
+    <span class="tag" style="color:var(--green)">Top conviction now (de-escalation)</span>
+    <ul style="font-size:13.5px;margin:8px 0 0;padding-left:18px">
+      <li><b>Long Nikkei / Japan risk</b> &mdash; momentum trade, broke 70k on the peace accord (71,053). Add on dips toward 69,500; trail stop, this is extended.</li>
+      <li><b>Long USD/JPY</b> &mdash; 161+, Fed leaning to <i>hikes</i> + wide yield gap. Targets 162 (Jul-24 peak), then 165. BoJ intervention is the main risk above 162.</li>
+      <li><b>Fade oil bounces</b> &mdash; war premium unwinding, Brent ~$78. Sell rallies into $82&ndash;85 toward $72, unless a Hormuz headline reappears.</li>
+      <li><b>Trim defense longs into strength</b> &mdash; structurally bid on the $1.5T budget, but peace cools the near-term spike. Buy pullbacks, don't chase.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <span class="tag" style="color:var(--red)">Cheap tail hedges (if truce breaks)</span>
+    <ul style="font-size:13.5px;margin:8px 0 0;padding-left:18px">
+      <li><b>Oil calls / long Brent</b> are now cheap with premium gone &mdash; asymmetric payoff if Hormuz re-escalates ($78 &rarr; $120+).</li>
+      <li><b>Long gold on dips</b> toward $4,100&ndash;4,200 &mdash; hedge vs both re-escalation and a Fed policy mistake.</li>
+      <li><b>Long JPY / CHF</b> if any escalation headline fires &mdash; fastest risk-off tell.</li>
+      <li><b>Hedge Asia exposure</b> (TSM, Hang Seng) with USD or puts &mdash; Taiwan/China second-front tail is underpriced.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="disc">
+<b>How to read this:</b> This is a decision-support tracker, not a crystal ball &mdash; it maps real events to typical market reactions so you can position ahead and react fast. It does not predict that any event will happen. Probabilities are judgement calls for sizing bets. Nothing here is financial advice; geopolitical trades carry violent two-way risk and you can lose money. Markets often "buy the rumour, sell the news," so consensus reactions sometimes reverse fast. Re-run the daily briefing for fresh state. Sources: Al Jazeera, CNN, Britannica, J.P. Morgan Research, Julius Baer, Straits Financial, SCMP, Global Taiwan Institute, GO Markets, MUFG, Thrivent (June 2026).
+</div>
+</div>
+
+<script>
+document.getElementById('asof').textContent='Snapshot as of '+new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+
+const scenarios=[
+ {name:'Truce holds / gradual de-escalation',prob:45,color:'var(--green)',
+  desc:'Ceasefire process sticks, talks advance, Hormuz stays open. Risk premium slowly bleeds out.',
+  moves:[['Oil','down','bleeds toward $80s'],['Gold','flat','drifts/retraces'],['USD/JPY','up','risk-on, carry back on'],['Equities','up','relief rally, defense cools'],['BTC','up','risk-on bid']]},
+ {name:'Frozen conflict / simmering status quo',prob:30,color:'var(--amber)',
+  desc:'No big new strikes but no real peace; Lebanon skirmishes, periodic flare-ups. Elevated premium persists.',
+  moves:[['Oil','flat','sticky $95–105'],['Gold','flat','elevated, choppy'],['USD','up','haven bid lingers'],['Defense','up','stays bid'],['BTC','flat','range']]},
+ {name:'Re-escalation / wider war',prob:20,color:'var(--red)',
+  desc:'Ceasefire breaks, Hormuz threatened or hit, oil infrastructure targeted, US drawn deeper in.',
+  moves:[['Oil','up','spike $120–150+'],['Gold','up','new highs'],['JPY/CHF','up','haven surge'],['Equities','down','risk-off sell'],['BTC','down','liquidation risk']]},
+ {name:'Asia-Pacific second front opens',prob:10,color:'var(--purple)',
+  desc:'China pressure on Taiwan/Japan turns kinetic while ME is hot. Lower odds near-term but highest impact.',
+  moves:[['TWD/Asia FX','down','sharp sell'],['Gold','up','flight bid'],['USD','up','global haven'],['TSM/Nikkei','down','heavy'],['Defense','up','re-rates higher']]}
+];
+
+const arrow=d=>d==='up'?'<span class="up">&uarr;</span>':d==='down'?'<span class="down">&darr;</span>':'<span class="flat">&ndash;</span>';
+const sc=document.getElementById('scenarios');
+scenarios.forEach(s=>{
+ const mv=s.moves.map(m=>`<div class="mv">${arrow(m[1])} <b>${m[0]}</b> &mdash; ${m[2]}</div>`).join('');
+ sc.insertAdjacentHTML('beforeend',
+ `<div class="scn"><div class="scn-head"><p class="scn-name">${s.name}</p><span class="prob" style="color:${s.color}">${s.prob}%</span></div>
+  <div class="bar"><span style="width:${s.prob}%;background:${s.color}"></span></div>
+  <p style="font-size:13.5px;margin:0 0 8px;color:var(--mut)">${s.desc}</p>
+  <div class="moves">${mv}</div></div>`);
+});
+
+const jChain=[
+ 'Ceasefire is a feint / breaks down &mdash; US is "forced" deeper in per the Pentagon doc',
+ 'Iran retaliation widens: proxies, Hormuz, strikes on Gulf oil infrastructure',
+ 'Russia + China openly back Iran &mdash; bloc hardens against the US',
+ 'Conflict spreads to a second theatre (Taiwan / Korea / E. Europe)',
+ 'Prolonged great-power war; US overstretched and "loses" &mdash; his WWIII endpoint'
+];
+const jc=document.getElementById('jiang-chain');
+jChain.forEach((t,i)=>jc.insertAdjacentHTML('beforeend',
+ `<div class="trig t-esc" style="padding-left:24px">${i+1}. ${t}</div>`));
+
+const jMoves=[
+ ['Oil','up','spikes $120&ndash;150+, stays high'],
+ ['Gold','up','blow-off, new records'],
+ ['JPY / CHF','up','safe-haven surge'],
+ ['USD','up','then erodes if US "loses"'],
+ ['Defense','up','re-rates much higher'],
+ ['S&P / risk equities','down','sustained bear move'],
+ ['TSM / Nikkei / Asia','down','heavy if 2nd front'],
+ ['BTC','down','risk-off; later capital-flight wildcard']
+];
+const jm=document.getElementById('jiang-moves');
+const jarrow=d=>d==='up'?'<span class="up">&uarr;</span>':d==='down'?'<span class="down">&darr;</span>':'<span class="flat">&ndash;</span>';
+jMoves.forEach(m=>jm.insertAdjacentHTML('beforeend',`<div class="mv">${jarrow(m[1])} <b>${m[0]}</b> &mdash; ${m[2]}</div>`));
+
+const pb=[
+ ['Crude oil (Brent/WTI)','down','flat','up'],
+ ['Gold (XAU)','flat','up','up'],
+ ['USD (DXY)','down','up','up'],
+ ['JPY / CHF (havens)','down','up','up'],
+ ['TWD / Asia FX','up','flat','down'],
+ ['Defense (LMT,RTX,NOC)','flat','up','up'],
+ ['Energy majors (XOM,CVX)','down','up','up'],
+ ['S&P 500 / risk equities','up','down','down'],
+ ['TSM / Nikkei / Hang Seng','up','flat','down'],
+ ['BTC / ETH','up','down','down']
+];
+const cell=d=>d==='up'?'<span class="up">&uarr; up</span>':d==='down'?'<span class="down">&darr; down</span>':'<span class="flat">&ndash; flat</span>';
+const tb=document.querySelector('#playbook tbody');
+pb.forEach(r=>tb.insertAdjacentHTML('beforeend',`<tr><td><b>${r[0]}</b></td><td>${cell(r[2])}</td><td>${cell(r[1])}</td><td>${cell(r[3])}</td></tr>`));
+
+const ideas=[
+ ['Nikkei 225','long','71,192','Dips ~69,500','73,000 / 75,000','Below 68,000','green'],
+ ['USD/JPY','long','161.3','161&ndash;161.5','162, then 165','Below 159.5','green'],
+ ['Brent crude','short','$79.2','Rallies $82&ndash;85','$72, then $70','Above $88 (Hormuz)','red'],
+ ['WTI crude','short','$76.6','Rallies $80&ndash;82','$70','Above $85','red'],
+ ['Gold (XAU)','buy dip','$4,279','$4,100&ndash;4,200','$4,500','Below $4,000','amber'],
+ ['DXY','long','100.6','100&ndash;101','103','Below 99','green'],
+ ['LMT','buy dip','$511','$495&ndash;505','$555+','Below $480','amber'],
+ ['RTX','buy dip','$188','$178&ndash;182','$205','Below $172','amber'],
+ ['NOC','buy dip','$525','$500&ndash;510','$560','Below $490','amber'],
+ ['XOM','neutral','$141','$132&ndash;136','$150 (if oil firms)','Below $128','amber'],
+ ['CVX','neutral','$178','$168&ndash;172','$190','Below $164','amber'],
+ ['TSM','hedge','$409','&mdash;','$477 (analyst)','Below $380 (Asia risk)','red'],
+ ['Hang Seng','hedge','23,925','&mdash;','&mdash;','Lagging; hedge tail','red'],
+ ['Bitcoin','neutral','$62,865','Dips $58&ndash;60k','$70k (risk-on)','Below $56k','amber']
+];
+const biasPill=(b,c)=>`<span class="pill p-${c}">${b}</span>`;
+const it=document.querySelector('#ideas tbody');
+ideas.forEach(r=>it.insertAdjacentHTML('beforeend',
+ `<tr><td><b>${r[0]}</b></td><td>${biasPill(r[1],r[6])}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td><td>${r[5]}</td></tr>`));
+
+const esc=['Ceasefire/MOU collapses or signing slips','Strike on oil infrastructure or tankers','Any Strait of Hormuz closure threat or incident','Direct US military escalation vs Iran','Assassination of senior leadership','Russia overtly backs Iran militarily'];
+const de=['MOU signed and holds (was targeted ~19 Jun)','Sanctions/blockade relief expands','Hostage/prisoner or de-mil deals','Hezbollah/Lebanon ceasefire added','Iran resumes oil exports normally','Diplomatic summit confirmed'];
+const asia=['China Coast Guard incursions escalate near Dongsha/Taiwan','PLA large-scale drills around Taiwan','China–Japan incident in East China Sea','US forces repositioned to first island chain','Taiwan/Japan emergency mobilisation'];
+const put=(id,arr,cls)=>document.getElementById(id).innerHTML=arr.map(t=>`<div class="trig ${cls}">${t}</div>`).join('');
+put('esc',esc,'t-esc');put('de',de,'t-de');put('asia',asia,'t-watch');
+
+const hotspots=[
+ {name:'Iran',lon:53,lat:32,tier:'active',impact:3,note:'Oil supply / Hormuz risk'},
+ {name:'Israel',lon:35,lat:31,tier:'active',impact:2.4,note:'Strikes on Iran & Lebanon'},
+ {name:'Lebanon',lon:35.8,lat:33.8,tier:'active',impact:1.6,note:'Hezbollah flashpoint'},
+ {name:'United States',lon:-98,lat:39,tier:'player',impact:3,note:'Broker + defense budget'},
+ {name:'Russia',lon:90,lat:62,tier:'player',impact:2,note:'Backs Iran; energy'},
+ {name:'China',lon:104,lat:35,tier:'flash',impact:2.2,note:'Taiwan/Japan pressure'},
+ {name:'Taiwan',lon:121,lat:23.7,tier:'flash',impact:1.8,note:'Chip supply / TSM'},
+ {name:'Japan',lon:138,lat:37,tier:'flash',impact:1.6,note:'Missiles near Taiwan'}
+];
+const tierColor={active:'#e24b4a',flash:'#ef9f27',player:'#378add'};
+const MW=920,MH=460;
+const proj=(lon,lat)=>[ (lon+180)*(MW/360), (90-lat)*(MH/180) ];
+let svg=`<svg viewBox="0 0 ${MW} ${MH}" width="100%" style="display:block;background:#eef1f4;border-radius:8px" role="img" aria-label="World map showing active geopolitical hot spots affecting markets">`;
+svg+=`<rect x="0" y="0" width="${MW}" height="${MH}" fill="#eef1f4"/>`;
+function drawMap(){
+ if(typeof d3==='undefined'||typeof topojson==='undefined'){renderMap('');return;}
+ fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+  .then(r=>r.json()).then(topo=>{
+   const geo=topojson.feature(topo,topo.objects.countries);
+   const path=d3.geoPath(d3.geoEquirectangular().fitSize([MW,MH],geo));
+   let land='';
+   geo.features.forEach(f=>{land+=`<path d="${path(f)}" fill="#d8dde3" stroke="#c2c8cf" stroke-width="0.4"/>`;});
+   renderMap(land);
+  }).catch(()=>renderMap(''));
+}
+let _mapTries=0;
+(function waitLibs(){
+ if((typeof d3!=='undefined'&&typeof topojson!=='undefined')||_mapTries>40){drawMap();return;}
+ _mapTries++;setTimeout(waitLibs,100);
+})();
+
+function renderMap(land){
+ let s=svg+land;
+ hotspots.forEach(h=>{
+  const [x,y]=proj(h.lon,h.lat);const r=5+h.impact*3.2;const c=tierColor[h.tier];
+  s+=`<circle cx="${x}" cy="${y}" r="${r+6}" fill="${c}" opacity="0.18"/>`;
+  s+=`<circle cx="${x}" cy="${y}" r="${r}" fill="${c}" opacity="0.85" stroke="#fff" stroke-width="1.2"><title>${h.name} — ${h.note}</title></circle>`;
+  const lx=x+r+4;
+  s+=`<text x="${lx}" y="${y-2}" font-size="13" font-weight="600" fill="#2c2c2a" font-family="-apple-system,sans-serif">${h.name}</text>`;
+  s+=`<text x="${lx}" y="${y+12}" font-size="10.5" fill="#5f5e5a" font-family="-apple-system,sans-serif">${h.note}</text>`;
+ });
+ s+='</svg>';
+ document.getElementById('mapwrap').innerHTML=s;
+}
+</script>
+</body>
+</html>
