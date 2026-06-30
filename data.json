@@ -1,29 +1,149 @@
 {
-  "asof": "25 June 2026",
+  "asof": "30 June 2026",
   "regime": "Mixed",
   "regime_color": "var(--amber)",
   "brent": "~$73/bbl &darr;",
-  "gold": "~$3,981 &darr;",
-  "snapshot_html": "The base case is still <b>de-escalation</b>, but the picture turned two-sided overnight. Israeli strikes on Hezbollah in Lebanon &mdash; which have killed dozens despite a renewed ceasefire &mdash; <b>postponed the US&ndash;Iran talks in Switzerland</b> (VP Vance cancelled his trip), and Tehran says it won't treat the next negotiating phase as started until Lebanon is resolved. Rhetoric hardened: Iran's military command threatened to <b>close the Strait of Hormuz</b> over Lebanon, while President Trump warned he could &quot;hit Iran very hard again.&quot; Even so, markets keep pricing the peace path: Brent slid to <b>~$73</b> (lowest since late February) as Hormuz tanker traffic actually <i>increased</i>, and gold sank to ~$3,981, an eight-month low, under a hawkish Fed and a dollar at multi-year highs (DXY ~101.4). Equities were only modestly soft &mdash; S&amp;P ~7,358 (&minus;0.1%), Nikkei ~69,175 (&minus;0.9%) &mdash; while the Hang Seng edged up to ~23,420 and USD/JPY held firm near ~160. Asia-Pacific stays a slow-burn second front (China Coast Guard pressure near Taiwan; the China&ndash;Japan freeze). Net: still the <b>de-escalation playbook</b>, but keep tail-hedges live while the talks are stalled and the Hormuz threat is back on the table.",
+  "gold": "~$4,030 &darr;",
+  "snapshot_html": "The regime has cooled to <b>mixed</b>. After five days of strikes, the US and Iran agreed a <b>standdown</b> on Sunday evening and set <b>technical talks in Doha</b> for Tuesday, though Tehran insists the interim deal &mdash; including release of roughly <b>$6bn</b> in frozen funds &mdash; must be implemented first and still claims Hormuz passage requires Iranian coordination. Markets are leaning into the diplomacy: <b>Brent</b> eased about <b>1%</b> to the low-$70s (~$72&ndash;74) as Gulf transits stayed consistent, unwinding the weekend war premium. <b>Gold</b> slipped to ~<b>$4,030</b>, on track for a fourth straight monthly loss and down over <b>10%</b> on the month, as a hawkish Fed &mdash; held at <b>3.50&ndash;3.75%</b> under new chair Warsh, dot plot flipping to a 2026 hike &mdash; trumps the haven bid. The <b>dollar</b> eased to ~<b>101.3</b> from a 14-month high near 101.8 as traders trimmed hike bets, while <b>USD/JPY</b> stayed pinned near <b>160</b>. Equities firmed: the <b>S&amp;P 500</b> rose about <b>0.4%</b> and the <b>Nikkei</b> added <b>0.9%</b> after Friday's slide, though the <b>Hang Seng</b> slipped <b>&minus;0.6%</b> to ~22,540. Asia stays a slow-burn second front as Chinese Coast Guard vessels keep near-continuous patrols east of Taiwan and Beijing presses Japan, while Ukraine's summer gains add a de-escalation tilt in Europe. Net: the ceasefire holds but is <b>shaky</b> &mdash; respect the talks-led relief, but keep tail hedges cheap until Doha delivers written clarity on Hormuz transit corridors.",
   "scenarios": [
-    {"name":"Truce holds / talks resume","prob":45,"color":"var(--green)",
-     "desc":"Lebanon flare-up cools, Switzerland talks restart, the 60-day MOU path holds and Hormuz stays open. Residual war premium keeps bleeding out.",
-     "moves":[["Oil","down","drifts back toward high $60s"],["Gold","flat","drifts/retraces under hawkish Fed"],["USD/JPY","up","risk-on, carry back on"],["Equities","up","relief rally, defense cools"],["BTC","up","risk-on bid"]]},
-    {"name":"Frozen conflict / simmering status quo","prob":33,"color":"var(--amber)",
-     "desc":"Lebanon keeps the talks stalled; no permanent deal, periodic flare-ups and Hormuz threats. Some premium returns and stays sticky.",
-     "moves":[["Oil","flat","firms $73&ndash;85"],["Gold","flat","elevated, choppy"],["USD","up","haven bid lingers"],["Defense","up","stays bid"],["BTC","flat","range"]]},
-    {"name":"Re-escalation / wider war","prob":14,"color":"var(--red)",
-     "desc":"Israel-Lebanon spirals, Iran walks from the MOU, Hormuz threatened or hit, US drawn deeper in after Trump's warning.",
-     "moves":[["Oil","up","spike $120&ndash;150+"],["Gold","up","new highs"],["JPY/CHF","up","haven surge"],["Equities","down","risk-off sell"],["BTC","down","liquidation risk"]]},
-    {"name":"Asia-Pacific second front opens","prob":8,"color":"var(--purple)",
-     "desc":"China pressure on Taiwan/Japan turns kinetic while the Middle East is hot. Lower odds near-term but highest impact.",
-     "moves":[["TWD/Asia FX","down","sharp sell"],["Gold","up","flight bid"],["USD","up","global haven"],["TSM/Nikkei","down","heavy"],["Defense","up","re-rates higher"]]}
+    {
+      "name": "De-escalation / talks hold",
+      "prob": 40,
+      "color": "var(--green)",
+      "desc": "The Sunday standdown sticks, Doha produces written clarity on Hormuz transit corridors and frozen-asset release, and the interim deal is implemented. Residual war premium keeps bleeding out of oil while risk assets grind higher.",
+      "moves": [
+        [
+          "Oil",
+          "down",
+          "fades toward high $60s&ndash;low $70s"
+        ],
+        [
+          "Gold",
+          "down",
+          "capped by hawkish Fed, haven bid fades"
+        ],
+        [
+          "USD/JPY",
+          "up",
+          "risk-on, carry back on near 160"
+        ],
+        [
+          "Equities",
+          "up",
+          "relief rally, AI overhang lingers"
+        ],
+        [
+          "BTC",
+          "up",
+          "risk-on bid"
+        ]
+      ]
+    },
+    {
+      "name": "Frozen conflict / fragile standoff",
+      "prob": 35,
+      "color": "var(--amber)",
+      "desc": "Talks limp on without a clean deal, the standdown holds but Hormuz stays gummed up under Iranian 'coordination', and a sticky war premium lingers in oil and gold. The base case if Doha is inconclusive.",
+      "moves": [
+        [
+          "Oil",
+          "flat",
+          "elevated, $72&ndash;85 range"
+        ],
+        [
+          "Gold",
+          "flat",
+          "choppy, Fed-capped"
+        ],
+        [
+          "USD",
+          "up",
+          "haven and rate-diff bid"
+        ],
+        [
+          "Tech equities",
+          "flat",
+          "AI derate plus geo drag"
+        ],
+        [
+          "BTC",
+          "flat",
+          "range"
+        ]
+      ]
+    },
+    {
+      "name": "Re-escalation / wider war",
+      "prob": 18,
+      "color": "var(--red)",
+      "desc": "Doha collapses, Iran walks from the MOU, and strikes resume with Hormuz throttled or hit as the US is drawn back in. Lower odds after the standdown but still a live tail given how fast the weekend erupted.",
+      "moves": [
+        [
+          "Oil",
+          "up",
+          "gap up; spike risk $90&ndash;120+"
+        ],
+        [
+          "Gold",
+          "up",
+          "haven bid toward new highs"
+        ],
+        [
+          "JPY/CHF",
+          "up",
+          "haven surge despite carry"
+        ],
+        [
+          "Equities",
+          "down",
+          "sharp risk-off"
+        ],
+        [
+          "BTC",
+          "down",
+          "liquidation risk"
+        ]
+      ]
+    },
+    {
+      "name": "Asia-Pacific second front opens",
+      "prob": 7,
+      "color": "var(--purple)",
+      "desc": "China pressure near Taiwan/Japan turns kinetic while the Middle East is still unsettled. Lowest odds near-term but highest impact, landing on an already-fragile tech complex.",
+      "moves": [
+        [
+          "TWD/Asia FX",
+          "down",
+          "sharp sell"
+        ],
+        [
+          "Gold",
+          "up",
+          "flight bid"
+        ],
+        [
+          "USD",
+          "up",
+          "global haven"
+        ],
+        [
+          "TSM/Nikkei",
+          "down",
+          "heavy"
+        ],
+        [
+          "Defense",
+          "up",
+          "re-rates higher"
+        ]
+      ]
+    }
   ],
   "track": {
-    "updated": "25 Jun 2026",
-    "entries": "6",
-    "hit": "64%",
-    "curve": "improving",
-    "note": "Fade-oil call kept delivering as Brent fell to ~$73 on rising Hormuz traffic, but stalled US-Iran talks and Iran's fresh Hormuz threat tilt the regime to mixed — keep fading rallies while respecting genuine two-way risk."
+    "updated": "30 Jun 2026",
+    "entries": "9",
+    "hit": "62%",
+    "curve": "down",
+    "note": "The fade-oil call held as Brent stayed in the low $70s, but Friday's flip to escalation and a havens-up, equities-down repricing did not pan out: a Sunday standdown and Tuesday's Doha talks instead sent gold lower and equities higher, so the tail-hedge bias underperformed this cycle and the regime resets to mixed."
   }
 }

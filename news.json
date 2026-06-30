@@ -1,77 +1,86 @@
 {
-  "captured": "25 Jun 2026",
+  "captured": "30 Jun 2026",
   "items": [
     {
       "cat": "geo",
-      "t": "US-Iran negotiators meet as Trump threatens to 'hit Iran very hard again' over Hezbollah",
-      "src": "CBS News",
-      "date": "25 Jun 2026",
-      "sum": "The signed US-Iran memorandum calls for hostilities to end on all fronts, including Lebanon, plus 60 days of bilateral talks toward a wider deal. But Trump warned he could strike Iran again over Hezbollah, and Tehran says it won't treat the next phase as started until Lebanon is addressed.",
-      "mkt": "Rhetoric is hardening even as the framework holds. Keeps a floor under oil and a bid under havens; the de-escalation trade now carries real two-way risk.",
-      "url": "https://www.cbsnews.com/live-updates/iran-us-war-talks-suspended-trump-mou-israel-lebanon-hezbollah-fighting/"
+      "t": "Trump says US and Iran to hold fresh talks in Qatar after weekend clashes",
+      "src": "CNBC",
+      "date": "29 Jun 2026",
+      "sum": "President Trump said US and Iranian representatives would meet in Doha on Tuesday, following a weekend exchange of strikes that strained the fragile ceasefire. A standdown was agreed Sunday evening, with technical talks now set to test whether the truce can hold.",
+      "mkt": "This is the regime-changer in reverse: a return to the table pulls the conflict back from open war and lets the weekend war premium bleed out of oil and gold.",
+      "url": "https://www.cnbc.com/2026/06/29/trump-us-iran-talks-qatar-hormuz.html"
     },
     {
       "cat": "geo",
-      "t": "Fears for US-Iran deal as Switzerland talks delayed by Israeli strikes on Lebanon",
-      "src": "Al Jazeera",
-      "date": "25 Jun 2026",
-      "sum": "Israeli strikes on Hezbollah in Lebanon have killed dozens despite a renewed ceasefire, postponing the next round of US-Iran talks in Switzerland after VP Vance cancelled his trip. Hezbollah says Israel must fully exit Lebanese territory or it considers the MOU violated.",
-      "mkt": "The Lebanon track is the single biggest swing factor for the war premium. A breakdown would snap premium back into oil and gold; a cooling reopens the fade.",
-      "url": "https://www.aljazeera.com/news/2026/6/19/us-iran-talks-postponed-as-israel-attacks-lebanon"
+      "t": "Strait of Hormuz ceasefire holds as US and Iran agree to Doha talks after five days of strikes",
+      "src": "Tech Times",
+      "date": "29 Jun 2026",
+      "sum": "After five days of strikes, Washington and Tehran agreed a standdown and scheduled talks in Doha, with Qatar mediating over roughly $6 billion in frozen Iranian funds. Tehran insists the interim deal must be implemented before final negotiations begin.",
+      "mkt": "Whether Doha produces written clarity on which transit corridor commercial vessels may use is now the single biggest swing factor for the oil risk premium.",
+      "url": "https://www.techtimes.com/articles/319277/20260629/strait-hormuz-ceasefire-holds-us-iran-agree-doha-talks-after-five-days-strikes.htm"
     },
     {
       "cat": "geo",
-      "t": "Iran's military command threatens to close the Strait of Hormuz over Lebanon",
-      "src": "CBS News",
-      "date": "25 Jun 2026",
-      "sum": "Iran's military command said it would close the Strait of Hormuz, citing the Lebanon issue, even as US spy agencies assess Israel will likely keep attacking Hezbollah and potentially jeopardize the tentative US-Iran peace deal.",
-      "mkt": "Hormuz is the key tail. The threat is so far rhetoric — tanker traffic is actually rising — but any move to act would be the fastest route to a triple-digit oil spike.",
-      "url": "https://www.cnn.com/2026/06/20/world/live-news/iran-war-trump-israel-lebanon"
+      "t": "US, Iran peace talks in Doha off to a shaky start",
+      "src": "Fox News",
+      "date": "30 Jun 2026",
+      "sum": "The Doha session opened on uncertain footing, with an Iranian Foreign Ministry spokesperson saying no meeting with the American side had been scheduled and that dialogue with mediator Qatar over the interim deal was more likely. The ambiguity leaves the diplomatic track hanging by a thread.",
+      "mkt": "A clean break in talks would snap a large war premium back into oil and gold within hours, so headline risk around Doha is acute and two-sided.",
+      "url": "https://www.foxnews.com/live-news/us-iran-doha-qatar-war-peace-talks-hormuz-strait-june-30"
     },
     {
       "cat": "markets",
-      "t": "Brent sinks below $74 to ~$73, lowest since late February, as risk premium fades",
-      "src": "Trading Economics",
-      "date": "25 Jun 2026",
-      "sum": "Brent fell to about $73.05 on 24 Jun, down more than 5% on the day and roughly 24% over the month, its lowest since late February. Increasing tanker traffic through the Strait of Hormuz and progress in US-Iran talks eased supply fears.",
-      "mkt": "Markets are voting de-escalation despite the headlines. Bias remains to fade rallies, but the easy part of the move is done with news two-way and Hormuz rhetoric live.",
-      "url": "https://tradingeconomics.com/commodity/brent-crude-oil"
+      "t": "Oil falls ~1% to $72.4 as markets await clarity on US-Iran talks in Doha",
+      "src": "HDFC Sky",
+      "date": "30 Jun 2026",
+      "sum": "Brent crude slipped about 1% to roughly $72.4 a barrel as traders positioned for a possible diplomatic breakthrough, while Gulf transits through the Strait of Hormuz stayed consistent. The move unwinds part of the premium built during the weekend escalation.",
+      "mkt": "With the tape now pricing diplomacy rather than war, oil is biased lower toward the high $60s on any concrete Doha progress, but a failed session reopens the upside gap.",
+      "url": "https://hdfcsky.com/news/brent-crude-oil-price-today-june-30-2026-crude-oil-price-fall-1percent-to-72-4-as-markets-await-clarity-on-potential-us-iran-talks-in-doha"
     },
     {
       "cat": "markets",
-      "t": "Gold slides to ~$3,981, an eight-month low, as hawkish Fed lifts the dollar",
+      "t": "Gold slips toward $4,030, on track for a fourth straight monthly loss",
       "src": "Trading Economics",
-      "date": "25 Jun 2026",
-      "sum": "Gold fell to about $3,981 an ounce, near its lowest since late 2025, pressured by a stronger dollar and rising expectations of Fed rate hikes. The US dollar index climbed to roughly 101.4, its highest in more than a year.",
-      "mkt": "Monetary policy still trumps geopolitics for gold. The macro drag caps rallies, but a genuine Lebanon/Hormuz escalation could still force a haven bid through the Fed headwind.",
+      "date": "30 Jun 2026",
+      "sum": "Gold fell to around $4,030-$4,040 an ounce as uncertainty over the US-Iran talks stoked inflation concerns and reinforced expectations of Fed rate hikes. Bullion is down more than 10% on the month, its fourth straight monthly decline, and sits far below its January record near $5,600.",
+      "mkt": "Monetary policy still trumps geopolitics for gold; only a genuine Hormuz/Iran re-escalation can force a haven bid straight through the hawkish-Fed headwind.",
       "url": "https://tradingeconomics.com/commodity/gold"
     },
     {
       "cat": "markets",
-      "t": "Fed holds at 3.50-3.75% but signals one to two hikes; Warsh keeps it hawkish",
-      "src": "Fortune",
-      "date": "22 Jun 2026",
-      "sum": "Under new Chair Kevin Warsh, the Fed held the funds rate at 3.50%-3.75% in June but its dot plot showed a median of one to two hikes this year on sticky inflation. Analysts including BofA expect a series of hikes that reverse earlier cuts.",
-      "mkt": "A hawkish Fed and a multi-year-high dollar are the dominant macro force right now — bearish gold and commodities, supportive of long USD/JPY carry near 160.",
-      "url": "https://fortune.com/2026/06/22/fed-rate-hikes-outlook-sticky-inflation-kevin-warsh-job-growth-oil-prices/"
-    },
-    {
-      "cat": "asia",
-      "t": "Nikkei eases to ~69,175 while Hang Seng edges up to ~23,420",
+      "t": "Fed holds at 3.50-3.75% but dot plot flips to a 2026 hike under new chair Warsh",
       "src": "CNBC",
-      "date": "24 Jun 2026",
-      "sum": "Japan's Nikkei 225 slipped about 0.9% to 69,175 on 24 Jun, extending a pullback from post-accord highs, while Hong Kong's Hang Seng rose 0.4% to about 23,420. The S&P 500 was roughly flat at 7,358.",
-      "mkt": "The peace-rally leg is maturing. Wait for dips to stabilize rather than chasing; a firm dollar and hawkish Fed cap the upside for risk near term.",
-      "url": "https://www.cnbc.com/2026/06/23/stock-market-today-live-updates.html"
+      "date": "17 Jun 2026",
+      "sum": "The FOMC voted 12-0 to hold the funds rate at 3.50%-3.75% at Kevin Warsh's first meeting as chair, but removed its prior cut bias and lifted the median end-2026 dot to 3.8%, with nine of eighteen participants projecting at least one hike. Seventeen of eighteen officials judged inflation risks tilted to the upside.",
+      "mkt": "A hawkish hold is the dominant macro force: bearish for gold and commodities and supportive of a firm dollar and long USD/JPY carry near the 160 intervention line.",
+      "url": "https://www.cnbc.com/2026/06/17/fed-interest-rate-decision-june-2026.html"
+    },
+    {
+      "cat": "markets",
+      "t": "Dollar index eases to ~101.3 as traders trim Fed hike bets",
+      "src": "GuruFocus",
+      "date": "30 Jun 2026",
+      "sum": "The DXY slipped to about 101.3 from a 14-month high near 101.8 hit on June 24, as cooler inflation signals led markets to scale back the magnitude of expected Fed hikes. The index is still up more than 2% on the month, its strongest monthly run since last July.",
+      "mkt": "A firm but off-the-highs dollar keeps pressure on commodities and Asia FX while leaving room for relief in risk assets if Doha de-escalates.",
+      "url": "https://www.gurufocus.com/economic_indicators/5747/us-dollar-index-dxy"
     },
     {
       "cat": "asia",
-      "t": "China Coast Guard keeps pressure near Taiwan; China-Japan freeze persists",
+      "t": "Chinese Coast Guard keeps near-continuous patrols east of Taiwan",
       "src": "AEI",
-      "date": "12 Jun 2026",
-      "sum": "China Coast Guard incursions near Kinmen and Pratas continued alongside a 'special maritime law enforcement operation' east of Taiwan on 6-10 Jun, as the China-Japan diplomatic crisis over PM Takaichi's Taiwan remarks drags on with tourism and seafood curbs.",
-      "mkt": "Slow-burn second front. Not a mover yet, but the key Asia tail risk for TWD/Asia FX, TSMC and the Nikkei if it turns kinetic while the Middle East stays unsettled.",
-      "url": "https://www.aei.org/articles/china-taiwan-update-june-12-2026/"
+      "date": "26 Jun 2026",
+      "sum": "Chinese Coast Guard vessels have patrolled waters east of Taiwan almost without pause since 1 June, with Beijing running a 'special maritime law enforcement operation' in response to Japan-Philippines efforts to delimit overlapping EEZ claims. Analysts read the activity as rehearsals for pressure or blockade.",
+      "mkt": "Slow-burn second front. Not a mover yet, but the key Asia tail risk for TWD/Asia FX, TSMC and the Nikkei if it turns kinetic while the Middle East is unsettled.",
+      "url": "https://www.aei.org/articles/china-taiwan-update-june-26-2026/"
+    },
+    {
+      "cat": "geo",
+      "t": "Ukraine seizes momentum, raising its flag over the Kinburn Spit",
+      "src": "Al Jazeera",
+      "date": "25 Jun 2026",
+      "sum": "Ukrainian forces raised a flag over the Kinburn Spit for the first time since 2022, part of more than 480 square kilometres reclaimed since late January. With the Russian economy under strain, President Putin has hinted at peace talks even as missile and drone exchanges continue.",
+      "mkt": "A second de-escalation thread in Europe trims one tail risk for energy and European assets, though any Russian escalation in response remains a watch item.",
+      "url": "https://www.aljazeera.com/news/2026/6/25/as-ukraine-seizes-first-chance-to-win-war-horrors-come-home-to-russia"
     }
   ]
 }
